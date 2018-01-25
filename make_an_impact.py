@@ -74,15 +74,6 @@ for row in cursor:
     if not printed_header:
         print ",".join(["record_id", "date_entered", "confirmation"] + sorted(fields.keys()) + ["make_an_impact_complete"])
         printed_header = True
-    if row[3] != fields["first_name"] and row[3] != fields["your_first_name"]:
-        print >> sys.stderr, "ERROR: database table field '%s' has value '%s' which does not match parsed field '%s' from 'Data' which has value '%s' or parsed field '%s' which has value '%s'" % \
-            ("FName", row[3], "first_name", fields["first_name"], "your_first_name", fields["your_first_name"])
-    if row[4] != fields["last_name"] and row[4] != fields["your_last_name"]:
-        print >> sys.stderr, "ERROR: database table field '%s' has value '%s' which does not match parsed field '%s' from 'Data' which has value '%s' or parsed field '%s' from 'Data' which has value '%s'" % \
-            ("LName", row[4], "last_name", fields["last_name"], "your_last_name", fields["your_last_name"])
-    if row[5] != fields["email"] and row[5] != fields["your_email"]:
-        print >> sys.stderr, "ERROR: database table field '%s' has value '%s' which does not match parsed field '%s' from 'Data' which has value '%s' or parsed field '%s' from 'Data' which has value '%s'" % \
-            ("email", row[5], "email", fields["email"], "your_email", fields["your_email"])
 
     print "\"" + "\",\"".join([row[0].encode("utf8"), row[1].strftime('%Y-%m-%d %H:%M:%S'), row[6].encode("utf8")] + \
         [fields[k].encode("utf8") for k in sorted(fields.keys())] + ["2"]) + "\""
